@@ -69,7 +69,7 @@ void setup(){
 void loop() {
   button_value = digitalRead(button);
   
-  int weekDay = 2;//weekday();
+  int weekDay = weekday();
   int hourDay = hour();
   int minuteDay = minute();
  
@@ -162,7 +162,7 @@ void loop() {
             printTime();
             digitalWrite(doorbell, LOW);
             digitalWrite(rele, HIGH); 
-            delay(30000);
+            delay(10000);
         break;
     }
    
@@ -185,7 +185,7 @@ void loop() {
     digitalWrite(rele, HIGH);
     Serial.println(Days[weekDay]);
     printTime();
-    delay(30000);
+    delay(10000);
   
   }
   
@@ -232,16 +232,16 @@ void printTime(){
   Serial.print(":");
   Serial.print(minute());
   Serial.print(":");
-  Serial.println(second());
+  Serial.print(second());
   
-  Serial.print("Day:");
+  Serial.print("  Day:");
   Serial.print(day());  // the day now (1-31)
   Serial.print(" ( ");
-  Serial.println(Days[weekday()]); // day of the week (1-7), Sunday is day 1
+  Serial.print(Days[weekday()]); // day of the week (1-7), Sunday is day 1
   Serial.print(" )");
-  Serial.print("Month:");
-  Serial.println(month()); // the month now (1-12)
-  Serial.print("Year:");
+  Serial.print(" Month:");
+  Serial.print(month()); // the month now (1-12)
+  Serial.print(" Year:");
   Serial.println(year());            // the full four digit year: (2009, 2010 etc)
 
 }
