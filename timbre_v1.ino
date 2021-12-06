@@ -162,7 +162,7 @@ void loop() {
             printTime();
             digitalWrite(doorbell, LOW);
             digitalWrite(rele, HIGH); 
-            delay(10000);
+            waitMinute();
         break;
     }
    
@@ -185,7 +185,7 @@ void loop() {
     digitalWrite(rele, HIGH);
     Serial.println(Days[weekDay]);
     printTime();
-    delay(10000);
+    waitMinute();
   
   }
   
@@ -249,14 +249,21 @@ void printTime(){
 void resetTime() {
   // Establecemos la Hour y la fecha 
   // setTime(Hour,minutos,segundos,dia,mes,anyo);
-  setTime(7, 4, 0, 5, 12, 2021);
+  setTime(14, 0, 0, 6, 12, 2021);
   
 }
 
 
 void waitMinute() {
 
-  delay(56000);
-
+  int minuteWait = minute();
+  
+  while(minuteWait == minute()){
+   delay(1);
+  }
 }
+
+
+
+
 
