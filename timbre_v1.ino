@@ -1,12 +1,11 @@
 #include <TimeLib.h>
 #include "pitches.h"
-// Proyecto tiembre 
 
+// Proyecto tiembre 
 
 
 // Outputs:
 int rele = 13;
-
 
 
 // Hours de clase tiempo en minutos
@@ -38,10 +37,7 @@ String Days[] = {
 
 
 
-
-
 void setup(){
-
  
   pinMode(rele, OUTPUT);
   digitalWrite(rele, HIGH); 
@@ -61,9 +57,6 @@ void loop() {
   int weekDay   = weekday();
   int hourDay   = hour();
   int minuteDay = minute();
- 
-
- 
  
   // Button state on, not weekend, not woking hours 
   
@@ -133,8 +126,7 @@ void loop() {
     Serial.println("Button on in weekend, not working hours and doorbell off");
     digitalWrite(rele, HIGH);
     printTime();
-    waitMinute();
-  
+    waitMinute();  
   }
   
   
@@ -148,12 +140,11 @@ void ring() {
  Serial.println("doorbell on");  
  digitalWrite(rele, LOW);
 
- delay(8000);  
+ waitRing();
  
  digitalWrite(rele, HIGH);     
  Serial.println("doorbell off");
  waitMinute();
-   
 }
 
 
@@ -181,7 +172,7 @@ void printTime(){
 
 void resetTime() {
   // setTime(Hour, minutes, seconds, day, month, year);
-  setTime(7,00 , 0, 13, 12, 2021);
+  setTime(8,47 , 0, 14, 12, 2021);
 }
 
 
@@ -190,6 +181,17 @@ void waitMinute() {
   int minuteWait = minute();
   
   while(minuteWait == minute()){
-   delay(10);
+   delay(1);
   }
+}
+
+
+void waitRing() {
+
+  int waitSeconds = second();
+ 
+  while((second() - waitSeconds)  < 6){
+   delay(1);
+  }
+
 }
