@@ -65,6 +65,7 @@ void loop() {
   
     String timeNowString = ""+ String(hourDay) +""+ String(minuteDay);
     int caseSwitch = timeNowString.toInt();
+    Serial.println(caseSwitch);
     
     switch (caseSwitch) {
         case 72:
@@ -172,7 +173,7 @@ void printTime(){
 
 void resetTime() {
   // setTime(Hour, minutes, seconds, day, month, year);
-  setTime(8,47 , 0, 14, 12, 2021);
+  setTime(11,44 , 0, 14, 1, 2022);
 }
 
 
@@ -181,7 +182,7 @@ void waitMinute() {
   int minuteWait = minute();
   
   while(minuteWait == minute()){
-   delay(1);
+   
   }
 }
 
@@ -191,7 +192,7 @@ void waitRing() {
   int waitSeconds = second();
  
   while((second() - waitSeconds)  < 6){
-   delay(1);
+   
   }
 
 }
