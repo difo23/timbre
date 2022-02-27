@@ -48,7 +48,8 @@ if (! rtc.begin()) {
   }
 
  
-   
+   if (! rtc.isrunning()) {
+    Serial.println("RTC is NOT running, let's set the time!"); 
     // When time needs to be set on a new device, or after a power loss, the
     // following line sets the RTC to the date & time this sketch was compiled
     rtc.adjust(DateTime(F(__DATE__), F(__TIME__)));
@@ -56,9 +57,9 @@ if (! rtc.begin()) {
     // January 21, 2014 at 3am you would call:
     // rtc.adjust(DateTime(2014, 1, 21, 3, 0, 0));
    
+   }
   
-  
- 
+
 }
 
 
@@ -72,7 +73,7 @@ void loop() {
 
   
   
-  int weekDay   = now.day();
+  int weekDay   = now.dayOfTheWeek();
   int hourDay   = now.hour();
   int minuteDay = now.minute();
   int secondDay = now.second();
@@ -80,14 +81,24 @@ void loop() {
   // Button state on, not weekend, not woking hours 
   String timeNowString = ""+ String(hourDay) +""+ String(minuteDay);
   int caseSwitch = timeNowString.toInt();
+
+  Serial.print(" Switch case: ");
   Serial.println(caseSwitch);
+
+  Serial.print(" Week day:  ");
+  Serial.println(weekDay);
+
+  Serial.print(" Hour day:  ");
+  Serial.println(hourDay);
+
+  Serial.println();
   
   
-  if( ( weekDay > 0 && weekDay < 7) && (hourDay > 6 && hourDay < 15 )) {
+  if( ( weekDay > 0 && weekDay < 6) && (hourDay > 6 && hourDay < 15 )) {
       
     switch (caseSwitch) {
         case 72:
-              ring();   
+             ring();   
         break;
         
         case 80:
@@ -184,6 +195,7 @@ void printTime(){
   Serial.print(':');
   Serial.print(now.second(), DEC);
   Serial.println();
+  Serial.println();
  
   delay(1000);
 }
@@ -191,27 +203,12 @@ void printTime(){
 
 
 void waitMinute() {
-   DateTime now = rtc.now();
-
-
-  int minuteWait = now.minute();
-  
-  while(minuteWait == now.minute()){
-    delay(1000);
-  }
-   
-   
+  delay(60000);  
 }
 
 
 void waitRing() {
-    
-  DateTime now = rtc.now();
   
-  int waitSeconds = now.second();
-
-  while((now.second() - waitSeconds)  < 6){
-    delay(1000);
-  }
+    delay(6000);
   
 }
